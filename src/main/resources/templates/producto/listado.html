@@ -53,13 +53,26 @@
 									th:text="(${item.activo}) ? 'activo' : 'inactivo'"> 
 								</span>
 							</td>
-							<td class="text-center"></td>
+							<td class="d-flex justify-content-around align-items-center gap-1">
+								<a th:href="@{/producto/edicion/{id}(id=${item.idProducto})}"
+									class="btn btn-outline-primary" title="Editar" aria-label="Editar" role="button">
+									<i class="fa-regular fa-pen-to-square"></i>
+								</a>
+								<form method="post" action="#">
+									<div class="form-switch">
+										<input type="hidden">
+										<input class="form-check-input" type="checkbox" th:checked="${item.activo}"
+											onchange="this.form.submit()">
+									</div>
+								</form>
+							</td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
 		</div>
 	</div>
+	<th:block th:utext="${toast}"></th:block>
 </body>
 
 
