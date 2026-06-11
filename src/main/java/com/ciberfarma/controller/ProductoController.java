@@ -21,17 +21,17 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @RequestMapping("producto")
 public class ProductoController {
-	
+
 	private final ProductoService productoService;
 	private final CategoriaService categoriaService;
 	private final ProveedorService proveedorService;
-	
+
 	@GetMapping("listado")
 	public String listado(Model model) {
 		model.addAttribute("lstProductos", productoService.getAll());
 		return "producto/listado";
 	}
-	
+
 	@GetMapping("nuevo")
 	public String nuevo(Model model) {
 		model.addAttribute("categorias", categoriaService.getAll());
@@ -39,15 +39,12 @@ public class ProductoController {
 		model.addAttribute("producto", new Producto());
 		return "producto/nuevo";
 	}
-	
+
 	@PostMapping("registrar")
-	public String registrar(
-			@ModelAttribute Producto producto, 
-			Model model, 
-			RedirectAttributes flash) {
-		
+	public String registrar(@ModelAttribute Producto producto, Model model, RedirectAttributes flash) {
+
 		var response = productoService.create(producto);
-		
+
 		if (!response.success()) {
 			model.addAttribute("categorias", categoriaService.getAll());
 			model.addAttribute("proveedores", proveedorService.getAll());
@@ -55,28 +52,25 @@ public class ProductoController {
 			model.addAttribute("alert", Alert.sweetAlertError(response.mensaje()));
 			return "producto/nuevo";
 		}
-		
+
 		var toast = Alert.sweetToast(response.mensaje(), "success", 5000);
 		flash.addFlashAttribute("toast", toast);
 		return "redirect:/producto/listado";
 	}
-	
+
 	@GetMapping("edicion/{id}")
-	public String edicion(@PathVariable Integer id,Model model) {
+	public String edicion(@PathVariable Integer id, Model model) {
 		model.addAttribute("categorias", categoriaService.getAll());
 		model.addAttribute("proveedores", proveedorService.getAll());
 		model.addAttribute("producto", productoService.getOne(id));
 		return "producto/edicion";
 	}
-	
+
 	@PostMapping("guardar")
-	public String guardar(
-			@ModelAttribute Producto producto, 
-			Model model, 
-			RedirectAttributes flash) {
-		
+	public String guardar(@ModelAttribute Producto producto, Model model, RedirectAttributes flash) {
+
 		var response = productoService.update(producto);
-		
+
 		if (!response.success()) {
 			model.addAttribute("categorias", categoriaService.getAll());
 			model.addAttribute("proveedores", proveedorService.getAll());
@@ -84,14 +78,10 @@ public class ProductoController {
 			model.addAttribute("alert", Alert.sweetAlertError(response.mensaje()));
 			return "producto/edicion";
 		}
-		
+
 		var toast = Alert.sweetToast(response.mensaje(), "success", 5000);
 		flash.addFlashAttribute("toast", toast);
 		return "redirect:/producto/listado";
 	}
-	
-	
-	
-	
-	
+
 }

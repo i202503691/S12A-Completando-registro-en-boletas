@@ -48,4 +48,8 @@ public class Producto {
 	@ManyToOne
 	@JoinColumn(name = "id_proveedor")
 	private Proveedor proveedor;
+	
+	public String getActivoDescripcion() {
+		return activo ? "Activo" : "Inactivo";
+	}
 }
