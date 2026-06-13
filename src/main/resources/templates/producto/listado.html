@@ -24,6 +24,46 @@
 						</a>
 					</div>
 				</div>
+				<div class="row mb-3">
+					<fieldset class="border border-2 border-dark pb-2">
+						<legend class="float-none w-auto px-2">Filtros</legend>
+						<form th:action="@{/producto/filtrado}" method="get" th:object="${filter}">
+							<div class="row align-items-end">
+								<div class="col-md-3">
+									<label for="idCategoria" class="form-label">Categoría</label>
+									<div class="input-group">
+										<span class="input-group-text"><i
+												class="fa-solid fa-chalkboard-user"></i></span>
+										<select class="form-select" th:field="*{idCategoria}">
+											<option value="">--Todos--</option>
+											<option th:each="item: ${categorias}" th:value="${item.idCategoria}"
+												th:text="${item.descripcion}"></option>
+										</select>
+									</div>
+								</div>
+								<div class="col-md-3">
+									<label for="proveedor" class="form-label">Proveedor</label>
+									<div class="input-group">
+										<span class="input-group-text"><i class="fa-solid fa-truck-fast"></i></span>
+										<select class="form-select" th:field="*{idProveedor}">
+											<option value="">--Todos-- </option>
+											<option th:each="item: ${proveedores}" th:value="${item.idProveedor}"
+												th:text="${item.razonSocial}"></option>
+										</select>
+									</div>
+								</div>
+								<div class="col-md-6 text-end">
+									<button type="submit" class="btn btn-outline-dark">
+										<i class="fa-solid fa-binoculars"></i> Buscar
+									</button>
+									<a th:href="@{/producto/filtrado}" class="btn btn-outline-secondary">
+										<i class="fa-solid fa-broom"></i> Limpiar
+									</a>
+								</div>
+							</div>
+						</form>
+					</fieldset>
+				</div>
 				<table class="table table-hover table-responsive">
 					<thead class="table-dark text-center">
 						<tr>

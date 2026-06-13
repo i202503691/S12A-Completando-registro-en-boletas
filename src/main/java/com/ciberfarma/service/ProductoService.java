@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.ciberfarma.dto.ProductoFilter;
 import com.ciberfarma.dto.ResultadoResponse;
 import com.ciberfarma.model.Producto;
 import com.ciberfarma.repository.ProductoRepository;
@@ -18,6 +19,10 @@ public class ProductoService {
 	
 	public List<Producto> getAll() {
 		return productoRepository.findAllByOrderByIdProductoDesc();
+	}
+	
+	public List<Producto> search(ProductoFilter filter) {
+		return productoRepository.findAllByFilters(filter.getIdCategoria(), filter.getIdProveedor());
 	}
 	
 	public ResultadoResponse create(Producto producto) {
