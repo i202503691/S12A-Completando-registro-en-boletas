@@ -9,6 +9,7 @@ import com.ciberfarma.dto.ResultadoResponse;
 import com.ciberfarma.model.Producto;
 import com.ciberfarma.repository.ProductoRepository;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -53,6 +54,26 @@ public class ProductoService {
 			return new ResultadoResponse(false, "Hubo un error en la transacción");
 		}
 	}
+	
+	@Transactional
+	public ResultadoResponse changeActive(Integer id) {
+		var producto = productoRepository.findById(id).orElseThrow();
+		
+		try {
+			producto.setActivo(!producto.getActivo());
+			
+			var estado = producto.getActivo() ? "activado" : "desactivado";
+			var mensaje = String.format("Producto con Id %s %s", producto.getIdProducto(), estado);
+			
+			return new ResultadoResponse(true, mensaje);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResultadoResponse(false, "Hubo un error en la transacción");
+		}
+	}	
+	
+	
+	
 	
 	
 	

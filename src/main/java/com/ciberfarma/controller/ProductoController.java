@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ciberfarma.dto.ProductoFilter;
@@ -93,5 +94,13 @@ public class ProductoController {
 		flash.addFlashAttribute("toast", toast);
 		return "redirect:/producto/listado";
 	}
-
+	
+	@PostMapping("cambiar-estado")
+	public String cambiarEstado(@RequestParam Integer id, RedirectAttributes flash) {
+		var response = productoService.changeActive(id);
+		
+		var toast = Alert.sweetToast(response.mensaje(), "success", 5000);
+		flash.addFlashAttribute("toast", toast);
+		return "redirect:/producto/listado";
+	}
 }
