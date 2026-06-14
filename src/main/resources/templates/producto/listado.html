@@ -8,6 +8,12 @@
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" />
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<!-- para el datatable -->
+	<link rel="stylesheet" href="https://cdn.datatables.net/2.3.2/css/dataTables.bootstrap5.css">
+	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="https://cdn.datatables.net/2.3.2/js/dataTables.js"></script>
+	<script src="https://cdn.datatables.net/2.3.2/js/dataTables.bootstrap5.js"></script>
 </head>
 
 <body>
@@ -64,7 +70,7 @@
 						</form>
 					</fieldset>
 				</div>
-				<table class="table table-hover table-responsive">
+				<table id="tbl-producto" class="table table-hover table-responsive">
 					<thead class="table-dark text-center">
 						<tr>
 							<th>Id</th>
@@ -114,6 +120,27 @@
 		</div>
 	</div>
 	<th:block th:utext="${toast}"></th:block>
+	<script>
+		$(function () {
+			$('#tbl-producto').DataTable({
+				language: {
+					search: 'Buscar (Descripción, Activo):',
+					url: 'https://cdn.datatables.net/plug-ins/1.13.8/i18n/es-ES.json'
+				},
+				pageLength: 10,
+				lengthMenu: [5, 10, 25, 50],
+				ordering: true,
+				order: [
+					[0, 'desc']
+				],
+				responsive: true,
+				columnDefs: [
+					{targets: [4,5,6,7], orderable: false},
+					{targets: [0,2,3,4,5,7], searchable: false}
+				]
+			});
+		});
+	</script>
 </body>
 
 </html>
