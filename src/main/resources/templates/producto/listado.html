@@ -27,7 +27,7 @@
 				<div class="row mb-3">
 					<fieldset class="border border-2 border-dark pb-2">
 						<legend class="float-none w-auto px-2">Filtros</legend>
-						<form th:action="@{/producto/filtrado}" method="get" th:object="${filter}">
+						<form th:action="@{/producto/listado}" method="get" th:object="${filter}">
 							<div class="row align-items-end">
 								<div class="col-md-3">
 									<label for="idCategoria" class="form-label">Categoría</label>
@@ -56,7 +56,7 @@
 									<button type="submit" class="btn btn-outline-dark">
 										<i class="fa-solid fa-binoculars"></i> Buscar
 									</button>
-									<a th:href="@{/producto/filtrado}" class="btn btn-outline-secondary">
+									<a th:href="@{/producto/listado}" class="btn btn-outline-secondary">
 										<i class="fa-solid fa-broom"></i> Limpiar
 									</a>
 								</div>
@@ -87,22 +87,25 @@
 							<td th:text="${item.categoria.descripcion}"></td>
 							<td th:text="${item.proveedor.razonSocial}"></td>
 							<td>
-								<span class="badge" th:classappend="(${item.activo}) ? ' bg-success' : ' bg-secondary'"
+								<span class="badge" th:classappend="(${item.activo}) ? 'bg-success' : 'bg-secondary'"
 									th:text="${item.activoDescripcion}">
 								</span>
 							</td>
-							<td class="d-flex justify-content-around align-items-center gap-1">
-								<a th:href="@{/producto/edicion/{id}(id=${item.idProducto})}"
-									class="btn btn-outline-primary" title="Editar" aria-label="Editar" role="button">
-									<i class="fa-regular fa-pen-to-square"></i>
-								</a>
-								<form method="post" action="#">
-									<div class="form-switch">
-										<input type="hidden">
-										<input class="form-check-input" type="checkbox" th:checked="${item.activo}"
-											onchange="this.form.submit()">
-									</div>
-								</form>
+							<td class="text-center">
+								<div class="d-flex justify-content-center align-items-center gap-2">
+									<a th:href="@{/producto/edicion/{id}(id=${item.idProducto})}"
+										class="btn btn-outline-primary" title="Editar" aria-label="Editar"
+										role="button">
+										<i class="fa-regular fa-pen-to-square"></i>
+									</a>
+									<form method="post" action="#">
+										<div class="form-switch">
+											<input type="hidden">
+											<input class="form-check-input" type="checkbox" th:checked="${item.activo}"
+												onchange="this.form.submit()">
+										</div>
+									</form>
+								</div>
 							</td>
 						</tr>
 					</tbody>

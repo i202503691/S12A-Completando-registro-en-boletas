@@ -27,14 +27,14 @@ public class ProductoController {
 	private final CategoriaService categoriaService;
 	private final ProveedorService proveedorService;
 
-	@GetMapping("listado")
-	public String listado(Model model) {
-		model.addAttribute("lstProductos", productoService.getAll());
-		return "producto/listado";
-	}
+//	@GetMapping("listado")
+//	public String listado(Model model) {
+//		model.addAttribute("lstProductos", productoService.getAll());
+//		return "producto/listado";
+//	}
 	
-	@GetMapping("filtrado")
-	public String filtrado(@ModelAttribute ProductoFilter filter, Model model) {
+	@GetMapping("listado")
+	public String listado(@ModelAttribute ProductoFilter filter, Model model) {
 		model.addAttribute("lstProductos", productoService.search(filter));
 		model.addAttribute("categorias", categoriaService.getAll());
 		model.addAttribute("proveedores", proveedorService.getAll());
