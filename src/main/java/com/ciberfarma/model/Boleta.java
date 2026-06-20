@@ -1,6 +1,5 @@
 package com.ciberfarma.model;
 
-import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -35,16 +34,15 @@ public class Boleta {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "num_boleta")
 	private Integer numBoleta;
-	
+
 	@Column(name = "fecha_registro")
 	private LocalDateTime fechaRegistro;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_usuario")
 	private Usuario usuario;
-	
+
 	@OneToMany(mappedBy = "boleta", cascade = CascadeType.ALL)
-	private List<DetalleBoleta> lstDetalleBoleta;	
-	
-	
+	private List<DetalleBoleta> lstDetalleBoleta;
+
 }
