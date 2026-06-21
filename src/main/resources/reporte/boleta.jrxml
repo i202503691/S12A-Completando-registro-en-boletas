@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.20.0-2bc7ab61c56f459e8176eb05c7705e145cd400ad  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="boleta" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6299aa94-fe62-40a1-9652-de19a1f39e0e">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="MYSQL"/>
+	<parameter name="pNumBoleta" class="java.lang.Integer"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT * FROM ciberfarmaweb.v_header_boleta where num_boleta = $P{pNumBoleta}  ]]>
+	</queryString>
+	<field name="num_boleta" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="num_boleta"/>
+		<property name="com.jaspersoft.studio.field.label" value="num_boleta"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="v_header_boleta"/>
+	</field>
+	<field name="numBolText" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="numBolText"/>
+		<property name="com.jaspersoft.studio.field.label" value="numBolText"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="v_header_boleta"/>
+	</field>
+	<field name="nombreCompletoUsuario" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="nombreCompletoUsuario"/>
+		<property name="com.jaspersoft.studio.field.label" value="nombreCompletoUsuario"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="v_header_boleta"/>
+	</field>
+	<field name="fechaText" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="fechaText"/>
+		<property name="com.jaspersoft.studio.field.label" value="fechaText"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="v_header_boleta"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="120" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="400" y="40" width="144" height="30" forecolor="#0936B3" backcolor="#FF9933" uuid="04fa1af6-7fe1-4f7f-a0c6-5f2104b6522e"/>
+				<box>
+					<pen lineWidth="1.75" lineStyle="Dotted" lineColor="#3C25C2"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Boleta de venta electrónica]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="400" y="10" width="144" height="30" forecolor="#0062FF" uuid="9db1267d-9e87-4019-b683-8efdc1f22fcf"/>
+				<box>
+					<pen lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<text><![CDATA[RUC: 12345678911
+]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="400" y="70" width="145" height="30" uuid="f4d1e442-81da-46e9-8b8b-4c6830109af6"/>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{numBolText}]]></textFieldExpression>
+			</textField>
+			<image scaleImage="FillFrame">
+				<reportElement x="0" y="0" width="270" height="80" uuid="7b2f73b0-910c-4eb8-ae49-97712f83442d"/>
+				<imageExpression><![CDATA["https://i.postimg.cc/qBD4tVXr/ciberfarma-logo.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="59" splitType="Stretch">
+			<staticText>
+				<reportElement x="10" y="10" width="80" height="30" uuid="a972cc1c-b6cf-4c12-973d-05e959d5e653"/>
+				<text><![CDATA[Registrado por:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="90" y="10" width="140" height="30" uuid="ad027be5-dd12-4f7d-a9e2-a425fc408457"/>
+				<textFieldExpression><![CDATA[$F{nombreCompletoUsuario}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="400" y="10" width="145" height="30" uuid="36a013f5-9c32-4cd7-b8fc-cebaf5253f8e"/>
+				<textFieldExpression><![CDATA[$F{fechaText}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

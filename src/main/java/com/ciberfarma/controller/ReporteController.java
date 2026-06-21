@@ -26,11 +26,11 @@ public class ReporteController {
 	@GetMapping("boleta")
 	public void boletaReporte(@RequestParam Integer numBol, HttpServletResponse response) throws Exception {
 		// Ruta del reporte (en resources/reportes)
-		String reportPath = "/reporte/tu_nombre_proyecto_jasper.jrxml";
+		String reportPath = "/reporte/boleta.jrxml";
 
 		// Parámetros
 		Map<String, Object> params = new HashMap<>();
-		params.put("tu_parametro_de_jasper", numBol);
+		params.put("pNumBoleta", numBol);
 		
 		//Get JasperPrint
 		JasperPrint jasperPrint = reporteService.getJasperPrint(params, reportPath);
