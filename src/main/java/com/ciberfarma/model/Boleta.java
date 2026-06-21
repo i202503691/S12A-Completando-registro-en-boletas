@@ -45,4 +45,7 @@ public class Boleta {
 	@OneToMany(mappedBy = "boleta", cascade = CascadeType.ALL)
 	private List<DetalleBoleta> lstDetalleBoleta;
 
+	public Double getTotal() {
+		return lstDetalleBoleta.stream().mapToDouble(d -> d.getPrecioVenta() * d.getCantidad()).sum();
+	}
 }

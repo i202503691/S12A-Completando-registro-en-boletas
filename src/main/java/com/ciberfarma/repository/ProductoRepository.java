@@ -14,6 +14,8 @@ public interface ProductoRepository extends JpaRepository<Producto, Integer> {
 	
 	List<Producto> findAllByOrderByIdProductoDesc();
 	
+	List<Producto> findAllByActivoTrue();
+	
 	@Query("""
 			select p
 			from Producto as p

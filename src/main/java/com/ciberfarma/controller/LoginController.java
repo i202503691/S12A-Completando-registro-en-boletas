@@ -21,8 +21,12 @@ public class LoginController {
 	private final AutenticacionService autenticacionService;
 
 	@GetMapping("iniciar-sesion")
-	public String iniciarSesion(@ModelAttribute AutentacionFilter filter, Model model, RedirectAttributes flash,
-			HttpSession session) {
+	public String iniciarSesion(
+			@ModelAttribute AutentacionFilter filter, 
+			Model model, 
+			RedirectAttributes flash,
+			HttpSession session
+	) {
 
 		var usuario = autenticacionService.autenticathe(filter);
 
@@ -43,9 +47,18 @@ public class LoginController {
 		//Guardamos los datos que sean necesarios en sesión
 		session.setAttribute("idUsuario", usuario.getIdUsuario());
 		session.setAttribute("fullName", usuario.getFullName());
+		
+		// Tiempo máximo de inactividad: 5 minutos
+		session.setMaxInactiveInterval(300);
 
 		String alert = Alert.sweetImageUrl("Bienvenido a Ciberfarma", usuario.getFullName(), "/imagenes/mapache_pedro.gif");
 		flash.addFlashAttribute("alert", alert);
 		return "redirect:/dashboard";
+	}
+	
+	@GetMapping("cerrar-sesion")
+	public String cerrarSesion(HttpSession session) {
+		session.invalidate();
+		return "redirect:/";
 	}
 }

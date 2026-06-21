@@ -6,8 +6,8 @@ import lombok.Data;
 public class ProductoSeleccionado {
 	private Integer idProducto;
 	private String descripcion;
-	private double precio;
-	private int cantidad;
+	private Double precio;
+	private Integer cantidad;
 
 	public Double getSubtotal() {
 		return precio * cantidad;

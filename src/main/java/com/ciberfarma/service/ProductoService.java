@@ -22,6 +22,10 @@ public class ProductoService {
 		return productoRepository.findAllByOrderByIdProductoDesc();
 	}
 	
+	public List<Producto> getAllActive() {
+		return productoRepository.findAllByActivoTrue();
+	}
+	
 	public List<Producto> search(ProductoFilter filter) {
 		return productoRepository.findAllByFilters(filter.getIdCategoria(), filter.getIdProveedor());
 	}

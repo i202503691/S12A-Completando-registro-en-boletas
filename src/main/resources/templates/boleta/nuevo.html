@@ -40,7 +40,8 @@
 				</button>
 
 				<!-- Producto Seleccionado -->
-				<form novalidate th:action="@{/boleta/agregar}" method="post" th:object="${productoSeleccionado}" class="needs-validation">
+				<form id="form-agregar" novalidate th:action="@{/boleta/agregar}" method="post"
+					th:object="${productoSeleccionado}" class="needs-validation">
 					<div class="row g-2 align-items-end">
 						<div class="col-md-2">
 							<label for="idProducto">Código</label>
@@ -74,7 +75,7 @@
 				<h5>Detalle de Productos</h5>
 				<div class="table-responsive">
 					<table class="table table-bordered align-middle">
-						<thead class="table-dark">
+						<thead class="table-dark text-center">
 							<tr>
 								<th>Código</th>
 								<th>Nombre</th>
@@ -86,16 +87,18 @@
 						</thead>
 						<tbody>
 							<tr th:each="item : ${seleccionados}">
-								<td th:text="${item.idProducto}"></td>
+								<td th:text="${item.idProducto}" class="text-center"></td>
 								<td th:text="${item.descripcion}"></td>
-								<td th:text="${item.precio}"></td>
-								<td th:text="${item.cantidad}"></td>
-								<td th:text="${item.subtotal}"></td>
-								<td>
-									<form action="#" method="post">
+								<td th:text="|S/. ${#numbers.formatDecimal(item.precio, 1, 'COMMA', 2, 'POINT')}|"
+									class="text-end"></td>
+								<td th:text="${item.cantidad}" class="text-end"></td>
+								<td th:text="|S/. ${#numbers.formatDecimal(item.subtotal, 1, 'COMMA', 2, 'POINT')}|"
+								 class="text-end"></td>
+								<td class="text-center"
+									<form th:action="@{/boleta/remover}" method="post">
 										<input type="hidden" name="id" th:value="${item.idProducto}" />
 										<button class="btn btn-danger btn-sm">
-											<i class="fa-solid fa-trash"></i> Quitar
+											<i class="fa-solid fa-trash"></i> Remover
 										</button>
 									</form>
 								</td>
@@ -128,7 +131,52 @@
 				$('#precio').val(precio);
 				$('#cantidad').val(1);
 
+				// Forzar revalidación de los controles
+				$('#idProducto').valid();
+				$('#descripcion').valid();
+				$('#precio').valid();
+				$('#cantidad').valid();
+
 				$('#modalProductos').modal('hide');
+			});
+		});
+
+		$(document).ready(function () {
+			$("#form-agregar").validate({
+				rules: {
+					descripcion: {
+						required: true
+					},
+					precio: {
+						required: true,
+						min: 0.01
+					},
+					cantidad: {
+						required: true,
+						min: 1
+					}
+				},
+				messages: {
+					descripcion: {
+						required: "seleccione un producto"
+					},
+					precio: {
+						required: "campo requerido",
+						min: "precio no puede ser 0"
+					},
+					cantidad: {
+						required: "campo requerido",
+						min: "cantidad min 1"
+					}
+				},
+				errorElement: 'div',
+				errorClass: 'invalid-tooltip',
+				highlight: function (element) {
+					$(element).addClass('is-invalid').removeClass('is-valid');
+				},
+				unhighlight: function (element) {
+					$(element).removeClass('is-invalid').addClass('is-valid');
+				}
 			});
 		});
 	</script>
